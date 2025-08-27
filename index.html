@@ -36,3 +36,74 @@
     #basket {
       position: absolute;
       bottom: 20px;
+      left: 50%;
+      width: 100px;
+      height: 30px;
+      margin-left: -50px;
+      background: brown;
+      border-radius: 10px;
+    }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <div id="basket"></div>
+    <div id="score">Score: 0</div>
+  </div>
+
+  <script>
+    const game = document.getElementById('game');
+    const basket = document.getElementById('basket');
+    const scoreDisplay = document.getElementById('score');
+    let score = 0;
+
+    // Move basket with mouse
+    game.addEventListener('mousemove', e => {
+      const x = e.clientX;
+      basket.style.left = `${x - basket.offsetWidth / 2}px`;
+    });
+
+    // Create falling stars
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = `${Math.random() * (window.innerWidth - 30)}px`;
+      star.style.top = `-30px`;
+      game.appendChild(star);
+
+      let fallInterval = setInterval(() => {
+        const starTop = parseInt(star.style.top);
+        star.style.top = `${starTop + 5}px`;
+
+        // Collision detection
+        const starRect = star.getBoundingClientRect();
+        const basketRect = basket.getBoundingClientRect();
+
+        if (
+          starRect.bottom >= basketRect.top &&
+          starRect.left < basketRect.right &&
+          starRect.right > basketRect.left
+        ) {
+          clearInterval(fallInterval);
+          game.removeChild(star);
+          score++;
+          scoreDisplay.textContent = `Score: ${score}`;
+        } else if (starTop > window.innerHeight) {
+          clearInterval(fallInterval);
+          game.removeChild(star);
+        }
+      }, 20);
+    }
+
+    // Drop stars every 1 second
+    setInterval(createStar, 1000);
+  </script>
+</body>
+</html>
