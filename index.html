@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Falling Stars Catcher</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #000428, #004e92);
+      overflow: hidden;
+      user-select: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+    }
+
+    #game {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: yellow;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%,
+                        79% 91%, 50% 70%, 21% 91%, 32% 57%,
+                        2% 35%, 39% 35%);
+      box-shadow: 0 0 15px yellow;
+    }
+
+    #basket {
+      position: absolute;
+      bottom: 20px;
